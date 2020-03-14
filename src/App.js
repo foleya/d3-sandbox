@@ -2,6 +2,8 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+import { BarGraph } from "/Users/dewey/source/d3-sandbox/src/Components/BarGraph.js";
+
 function App() {
   return (
     <div className="App">
@@ -18,6 +20,7 @@ function App() {
         >
           Hello World
         </a>
+        <BarGraph />
       </header>
     </div>
   );
