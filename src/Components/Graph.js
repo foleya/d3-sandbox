@@ -6,25 +6,36 @@ import {
   line,
   max,
   select,
+  scaleBand,
   scaleLinear
 } from "d3";
 // import killcountcsv from "../Data/nilheimkillcount.csv";
 
 const Graph = () => {
-  const [data, setData] = useState([25, 30, 45, 60, 20, 65, 75, 40]);
+  const [data, setData] = useState([25, 30, 45, 60, 20, 65, 75]);
 
   const svgRef = useRef();
 
   useEffect(() => {
     const svg = select(svgRef.current);
 
-    const xScale = scaleLinear()
-      .domain([0, data.length - 1])
-      .range([0, 300]);
+    // const xScale = scaleLinear()
+    //   .domain([0, data.length - 1])
+    //   .range([0, 300]);
+
+    const xScale = scaleBand()
+      .domain(data.map((value, index) => index))
+      .range([0, 300])
+      .padding(0.3);
 
     const yScale = scaleLinear()
-      .domain([0, max(data)])
+      .domain([0, 150])
       .range([150, 0]);
+
+    const colorScale = scaleLinear()
+      .domain([75, 100, 150])
+      .range(["green", "orange", "red"])
+      .clamp(true);
 
     const xAxis = axisBottom(xScale).ticks(data.length);
     svg
@@ -38,20 +49,36 @@ const Graph = () => {
       .style("transform", "translateX(300px)")
       .call(yAxis);
 
-    const myLine = line()
-      .x((value, index) => xScale(index))
-      .y(yScale)
-      .curve(curveCardinal);
-
     svg
-      .selectAll(".line")
-      .data([data])
-      .join("path")
-      .attr("class", "line")
-      .attr("d", myLine)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue");
-    // Circle Example
+      .selectAll(".bar")
+      .data(data)
+      .join("rect")
+      .attr("class", "bar")
+      .style("transform", "scale(1, -1)")
+      .attr("x", (value, index) => xScale(index))
+      .attr("y", -150)
+      .attr("width", xScale.bandwidth())
+      .transition()
+      .attr("height", value => 150 - yScale(value))
+      .attr("fill", colorScale);
+
+    // <-- Line Example
+    // const myLine = line()
+    //   .x((value, index) => xScale(index))
+    //   .y(yScale)
+    //   .curve(curveCardinal);
+
+    // svg
+    //   .selectAll(".line")
+    //   .data([data])
+    //   .join("path")
+    //   .attr("class", "line")
+    //   .attr("d", myLine)
+    //   .attr("fill", "none")
+    //   .attr("stroke", "steelblue");
+    // -->
+
+    // <-- Circle Example
     // svg
     //   .selectAll("circle")
     //   .data(data)
