@@ -12,7 +12,7 @@ import {
 // import killcountcsv from "../Data/nilheimkillcount.csv";
 
 const Graph = () => {
-  const [data, setData] = useState([25, 30, 45, 60, 20, 65, 75]);
+  const [data, setData] = useState([25, 25, 25, 25, 25, 25, 25]);
 
   const svgRef = useRef();
 
