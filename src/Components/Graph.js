@@ -62,7 +62,7 @@ const Graph = () => {
       .attr("height", value => 150 - yScale(value))
       .attr("fill", colorScale);
 
-    // <-- Line Example
+    // <-- Line
     // const myLine = line()
     //   .x((value, index) => xScale(index))
     //   .y(yScale)
@@ -78,7 +78,7 @@ const Graph = () => {
     //   .attr("stroke", "steelblue");
     // -->
 
-    // <-- Circle Example
+    // <-- Circle
     // svg
     //   .selectAll("circle")
     //   .data(data)

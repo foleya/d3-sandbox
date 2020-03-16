@@ -47,11 +47,13 @@ const BarGraph = () => {
   useEffect(() => {
     const svg = select(svgRef.current);
 
+    // VALUE HELPERS
     const xValue = d => d.fun;
     const yValue = d => d.player;
 
+    // SCALES
     const xScale = scaleLinear()
-      .domain([0, 6])
+      .domain([0, 6]) // max function here!
       .range([0, proportions.width]);
 
     const yScale = scaleBand()
@@ -59,6 +61,21 @@ const BarGraph = () => {
       .range([0, height])
       .padding([0.2]);
 
+    // AXES
+    const xAxis = axisBottom(xScale).ticks(data.length);
+
+    svg
+      .select(".x-axis")
+      .style("transform", `translateY(${height}px)`)
+      .call(xAxis);
+
+    const yAxis = axisLeft(yScale)
+      .ticks(data.length)
+      .tickSizeOuter(0);
+
+    svg.select(".y-axis").call(yAxis);
+
+    // BARS
     svg
       .selectAll(".bar")
       .data(data)
@@ -72,7 +89,10 @@ const BarGraph = () => {
 
   return (
     <React.Fragment>
-      <svg ref={svgRef} width={width} height={height} />
+      <svg ref={svgRef} width={width} height={height}>
+        <g className="x-axis" />
+        <g className="y-axis" />
+      </svg>
     </React.Fragment>
   );
 };
