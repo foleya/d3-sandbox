@@ -9,6 +9,7 @@ import {
   scaleBand,
   scaleLinear
 } from "d3";
+import ResizeObserver from "resize-observer-polyfill";
 import Styles from "./Styles.module.scss";
 
 const useResizeObserver = ref => {
