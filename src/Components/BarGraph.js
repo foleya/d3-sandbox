@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { axisBottom, axisLeft, max, scaleLinear, scaleBand, select } from "d3";
+import React, { useEffect, useRef } from "react";
+import { axisBottom, axisLeft, scaleLinear, scaleBand, select } from "d3";
 import funDataJson from "../Data/nilheimFunCount.json";
 
 const BarGraph = () => {
@@ -9,7 +9,7 @@ const BarGraph = () => {
 
   const width = 500;
   const height = 310;
-  const margin = { top: 0, right: 0, bottom: 30, left: 30 };
+  // const margin = { top: 0, right: 0, bottom: 30, left: 30 };
 
   useEffect(() => {
     const svg = select(svgRef.current);

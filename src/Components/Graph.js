@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   axisBottom,
   axisRight,
-  curveCardinal,
-  line,
-  max,
+  //   curveCardinal,
+  //   line,
+  //   max,
   select,
   scaleBand,
   scaleLinear
@@ -58,6 +58,26 @@ const Graph = () => {
       .attr("x", (value, index) => xScale(index))
       .attr("y", -150)
       .attr("width", xScale.bandwidth())
+      .on("mouseenter", (value, index) => {
+        svg
+          .selectAll(".tooltip")
+          .data([value])
+          .join(enter => enter.append("text").attr("y", yScale(value) - 4))
+          .attr("class", "tooltip")
+          .text(value)
+          .attr("x", xScale(index) + xScale.bandwidth() / 2)
+          .attr("text-anchor", "middle")
+          .transition()
+          .attr("y", yScale(value) - 8)
+          .attr("opacity", 1);
+      })
+      .on("mouseleave", value =>
+        svg
+          .select(".tooltip")
+          .transition()
+          .attr("opacity", 0)
+          .attr("y", yScale(value) - 4)
+      )
       .transition()
       .attr("height", value => 150 - yScale(value))
       .attr("fill", colorScale);
