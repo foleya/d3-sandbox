@@ -9,29 +9,9 @@ import {
   scaleBand,
   scaleLinear
 } from "d3";
-import ResizeObserver from "resize-observer-polyfill";
+
+import useResizeObserver from "../CustomHooks/useResizeObserver";
 import Styles from "./Styles.module.scss";
-
-const useResizeObserver = ref => {
-  const [dimensions, setDimensions] = useState(null);
-
-  useEffect(() => {
-    const observeTarget = ref.current;
-    const resizeObserver = new ResizeObserver(entries => {
-      entries.forEach(entry => {
-        setDimensions(entry.contentRect);
-      });
-    });
-    resizeObserver.observe(observeTarget);
-
-    // Cleanup
-    return () => {
-      resizeObserver.unobserve(observeTarget);
-    };
-  }, [ref]);
-
-  return dimensions;
-};
 
 const Graph = () => {
   const [data, setData] = useState([25, 25, 25, 25, 25, 25, 25]);

@@ -4,12 +4,14 @@ import "./App.css";
 
 import { BarGraph } from "./Components/BarGraph";
 import { Graph } from "./Components/Graph";
+import { GaugeChart } from "./Components/GaugeChart";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        <GaugeChart />
         <Graph />
         <BarGraph />
       </header>
